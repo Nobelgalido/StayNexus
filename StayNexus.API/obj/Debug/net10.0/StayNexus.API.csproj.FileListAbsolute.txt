@@ -6,6 +6,7 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.csproj.CoreCompileInputs.cache
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.sourcelink.json
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\appsettings.Development.json
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\appsettings.json
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.API.staticwebassets.endpoints.json
@@ -17,6 +18,7 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.API.
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Azure.Identity.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Humanizer.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -166,5 +168,3 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\refint\StayNex
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.genruntimeconfig.cache
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\ref\StayNexus.API.dll
-C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.sourcelink.json

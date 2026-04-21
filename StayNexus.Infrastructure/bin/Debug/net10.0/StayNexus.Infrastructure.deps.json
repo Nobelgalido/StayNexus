@@ -11,7 +11,8 @@
           "Microsoft.EntityFrameworkCore": "10.0.6",
           "Microsoft.EntityFrameworkCore.Design": "10.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "10.0.6",
-          "StayNexus.Core": "1.0.0"
+          "StayNexus.Core": "1.0.0",
+          "System.Security.Cryptography.Xml": "9.0.0"
         },
         "runtime": {
           "StayNexus.Infrastructure.dll": {}
@@ -132,7 +133,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.6",
           "Microsoft.Extensions.Logging.Abstractions": "10.0.6",
           "Microsoft.Extensions.Options": "10.0.6",
-          "System.Security.Cryptography.Xml": "8.0.2"
+          "System.Security.Cryptography.Xml": "9.0.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.dll": {
@@ -1264,21 +1265,22 @@
           }
         }
       },
-      "System.Security.Cryptography.Xml/8.0.2": {
+      "System.Security.Cryptography.Xml/9.0.0": {
         "dependencies": {
           "System.Security.Cryptography.Pkcs": "9.0.4"
         },
         "runtime": {
-          "lib/net8.0/System.Security.Cryptography.Xml.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
+          "lib/net9.0/System.Security.Cryptography.Xml.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
           }
         }
       },
       "StayNexus.Core/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity": "2.3.9",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.6"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.6",
+          "System.Security.Cryptography.Xml": "9.0.0"
         },
         "runtime": {
           "StayNexus.Core.dll": {
@@ -1876,12 +1878,12 @@
       "path": "system.security.cryptography.protecteddata/9.0.4",
       "hashPath": "system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
     },
-    "System.Security.Cryptography.Xml/8.0.2": {
+    "System.Security.Cryptography.Xml/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aDM/wm0ZGEZ6ZYJLzgqjp2FZdHbDHh6/OmpGfb7AdZ105zYmPn/83JRU2xLIbwgoNz9U1SLUTJN0v5th3qmvjA==",
-      "path": "system.security.cryptography.xml/8.0.2",
-      "hashPath": "system.security.cryptography.xml.8.0.2.nupkg.sha512"
+      "sha512": "sha512-GQZn5wFd+pyOfwWaCbqxG7trQ5ox01oR8kYgWflgtux4HiUNihGEgG2TktRWyH+9bw7NoEju1D41H/upwQeFQw==",
+      "path": "system.security.cryptography.xml/9.0.0",
+      "hashPath": "system.security.cryptography.xml.9.0.0.nupkg.sha512"
     },
     "StayNexus.Core/1.0.0": {
       "type": "project",

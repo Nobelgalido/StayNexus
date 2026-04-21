@@ -1,12 +1,16 @@
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\bin\Debug\net10.0\StayNexus.Shared.deps.json
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\bin\Debug\net10.0\StayNexus.Shared.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\bin\Debug\net10.0\StayNexus.Shared.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\bin\Debug\net10.0\StayNexus.Core.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\bin\Debug\net10.0\StayNexus.Core.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.csproj.AssemblyReference.cache
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.AssemblyInfoInputs.cache
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.AssemblyInfo.cs
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.csproj.CoreCompileInputs.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.sourcelink.json
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexu.424880C9.Up2Date
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\refint\StayNexus.Shared.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\ref\StayNexus.Shared.dll
-C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.sourcelink.json

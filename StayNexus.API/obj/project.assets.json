@@ -86,7 +86,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/10.0.5": {
+      "Microsoft.AspNetCore.OpenApi/10.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "2.0.0"
@@ -1201,6 +1201,9 @@
       "StayNexus.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "StayNexus.Core": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/StayNexus.Shared.dll": {}
         },
@@ -1301,10 +1304,10 @@
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.OpenApi/10.0.5": {
-      "sha512": "vTcxIfOPyfFbYk1g8YcXJfkMnlEWVkSnnjxcZLy60zgwiHMRf2SnZR+9E4HlpwKxgE3yfKMOti8J6WfKuKsw6w==",
+    "Microsoft.AspNetCore.OpenApi/10.0.6": {
+      "sha512": "WTAQe7MAbbKztRyeCRGZOqqlIqpMHDBz+jKo7LLY6hp4qRqn7iucR24u32KJVxV7mF3tSEfwXH96NgGSiDBw7A==",
       "type": "package",
-      "path": "microsoft.aspnetcore.openapi/10.0.5",
+      "path": "microsoft.aspnetcore.openapi/10.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1315,7 +1318,7 @@
         "build/Microsoft.AspNetCore.OpenApi.targets",
         "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll",
         "lib/net10.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.10.0.6.nupkg.sha512",
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
@@ -3651,7 +3654,7 @@
     "net10.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.6",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.6",
-      "Microsoft.AspNetCore.OpenApi >= 10.0.5",
+      "Microsoft.AspNetCore.OpenApi >= 10.0.*",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.6",
       "StayNexus.Core >= 1.0.0",
       "StayNexus.Infrastructure >= 1.0.0",
@@ -3730,7 +3733,7 @@
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
-            "version": "[10.0.5, )"
+            "version": "[10.0.*, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

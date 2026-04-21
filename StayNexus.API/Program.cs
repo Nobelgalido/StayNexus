@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StayNexus.Core.Models;
 using StayNexus.Infrastructure.Data;
-using StayNexus.Core.Interfaces;
 using StayNexus.Infrastructure.Services;
+using StayNexus.Core.Interfaces;
+using StayNexus.Infrastructure.Repositories;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,12 +68,35 @@ builder.Services.AddCors(options =>
 // Services
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+// Repositories
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
 // Controllers
 builder.Services.AddControllers();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter your JWT token"
+    });
+
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecuritySchemeReference("Bearer", document),
+            new List<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
