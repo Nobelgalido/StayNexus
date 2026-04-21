@@ -1,0 +1,122 @@
+@page "/admin/rooms/{PropertyId:int}"
+@attribute [Authorize(Roles = "Admin")]
+@inject RoomService RoomService
+@inject NavigationManager Navigation
+
+<h2>Rooms</h2>
+<button @onclick="GoBack">← Back</button>
+<button @onclick="() => showForm = true">+ Add Room</button>
+
+@if (showForm)
+{
+    <div>
+        <h4>New Room</h4>
+        <input placeholder="Name" @bind="newRoom.Name" />
+        <input placeholder="Description" @bind="newRoom.Description" />
+        <input type="number" placeholder="Price Per Night" @bind="newRoom.PricePerNight" />
+        <input type="number" placeholder="Max Guests" @bind="newRoom.MaxGuests" />
+        <select @bind="newRoom.RoomType">
+            @foreach (var type in Enum.GetValues<StayNexus.Core.Enums.RoomType>())
+            {
+                <option value="@type">@type</option>
+            }
+        </select>
+        <button @onclick="HandleCreate">Save</button>
+        <button @onclick="() => showForm = false">Cancel</button>
+    </div>
+}
+
+@if (rooms is null)
+{
+    <p>Loading...</p>
+}
+else if (!rooms.Any())
+{
+    <p>No rooms found.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Price/Night</th>
+                <th>Max Guests</th>
+                <th>Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in rooms)
+            {
+                <tr>
+                    <td>@room.Name</td>
+                    <td>@room.RoomType</td>
+                    <td>₱@room.PricePerNight.ToString("N2")</td>
+                    <td>@room.MaxGuests</td>
+                    <td>@(room.IsAvailable ? "Yes" : "No")</td>
+                    <td>
+                        <button @onclick="() => HandleDelete(room.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p style="color:red">@errorMessage</p>
+}
+
+@code {
+    [Parameter] public int PropertyId { get; set; }
+
+    private List<StayNexus.Shared.DTOs.RoomDto>? rooms;
+    private StayNexus.Shared.Requests.CreateRoomRequest newRoom = new();
+    private bool showForm = false;
+    private string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        newRoom.PropertyId = PropertyId;
+        rooms = await RoomService.GetAllRoomsAsync();
+        rooms = rooms.Where(r => r.PropertyId == PropertyId).ToList();
+    }
+
+    private async Task HandleCreate()
+    {
+        var success = await RoomService.CreateRoomAsync(newRoom);
+        if (success)
+        {
+            showForm = false;
+            newRoom = new() { PropertyId = PropertyId };
+            rooms = await RoomService.GetAllRoomsAsync();
+            rooms = rooms.Where(r => r.PropertyId == PropertyId).ToList();
+        }
+        else
+        {
+            errorMessage = "Failed to create room.";
+        }
+    }
+
+    private async Task HandleDelete(int id)
+    {
+        var success = await RoomService.DeleteRoomAsync(id);
+        if (success)
+        {
+            rooms = await RoomService.GetAllRoomsAsync();
+            rooms = rooms.Where(r => r.PropertyId == PropertyId).ToList();
+        }
+        else
+        {
+            errorMessage = "Failed to delete room.";
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/admin/properties");
+    }
+}

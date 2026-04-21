@@ -20,5 +20,8 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthStateProvider>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AuthorizedHttpClientFactory>();
+builder.Services.AddScoped<RoomService>();
+builder.Services.AddScoped<PropertyService>();
 
 await builder.Build().RunAsync();

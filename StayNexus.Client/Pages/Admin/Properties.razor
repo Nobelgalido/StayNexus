@@ -1,0 +1,110 @@
+@page "/admin/properties"
+@attribute [Authorize(Roles = "Admin")]
+@inject PropertyService PropertyService
+@inject NavigationManager Navigation
+
+<h2>Properties</h2>
+
+<button @onclick="() => showForm = true">+ Add Property</button>
+
+@if (showForm)
+{
+    <div>
+        <h4>New Property</h4>
+        <input placeholder="Name" @bind="newProperty.Name" />
+        <input placeholder="Description" @bind="newProperty.Description" />
+        <input placeholder="Address" @bind="newProperty.Address" />
+        <input placeholder="City" @bind="newProperty.City" />
+        <input placeholder="Province" @bind="newProperty.Province" />
+        <button @onclick="HandleCreate">Save</button>
+        <button @onclick="() => showForm = false">Cancel</button>
+    </div>
+}
+
+@if (properties is null)
+{
+    <p>Loading...</p>
+}
+else if (!properties.Any())
+{
+    <p>No properties found.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Province</th>
+                <th>Owner</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var property in properties)
+            {
+                <tr>
+                    <td>@property.Name</td>
+                    <td>@property.City</td>
+                    <td>@property.Province</td>
+                    <td>@property.OwnerName</td>
+                    <td>
+                        <button @onclick="() => GoToRooms(property.Id)">Rooms</button>
+                        <button @onclick="() => HandleDelete(property.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p style="color:red">@errorMessage</p>
+}
+
+@code {
+    private List<StayNexus.Shared.DTOs.PropertyDto>? properties;
+    private StayNexus.Shared.Requests.CreatePropertyRequest newProperty = new();
+    private bool showForm = false;
+    private string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        properties = await PropertyService.GetAllPropertiesAsync();
+    }
+
+    private async Task HandleCreate()
+    {
+        var success = await PropertyService.CreatePropertyAsync(newProperty);
+        if (success)
+        {
+            showForm = false;
+            newProperty = new();
+            properties = await PropertyService.GetAllPropertiesAsync();
+        }
+        else
+        {
+            errorMessage = "Failed to create property.";
+        }
+    }
+
+    private async Task HandleDelete(int id)
+    {
+        var success = await PropertyService.DeletePropertyAsync(id);
+        if (success)
+        {
+            properties = await PropertyService.GetAllPropertiesAsync();
+        }
+        else
+        {
+            errorMessage = "Failed to delete property.";
+        }
+    }
+
+    private void GoToRooms(int propertyId)
+    {
+        Navigation.NavigateTo("/admin/rooms/" + propertyId);
+    }
+}
