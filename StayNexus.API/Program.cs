@@ -71,6 +71,10 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 // Repositories
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+
+// Booking
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // Controllers
 builder.Services.AddControllers();
