@@ -1,0 +1,46 @@
+@page "/login"
+@layout Layout.MainLayout
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<div class="auth-container">
+    <h2>Login</h2>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="error">@errorMessage</p>
+    }
+
+    <input type="email" placeholder="Email" @bind="email" />
+    <input type="password" placeholder="Password" @bind="password" />
+    <button @onclick="HandleLogin">Login</button>
+
+    <p>Don't have an account? <a href="/register">Register</a></p>
+</div>
+
+@code {
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string errorMessage = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        errorMessage = string.Empty;
+
+        var request = new StayNexus.Shared.Requests.LoginRequest
+        {
+            Email = email,
+            Password = password
+        };
+
+        var result = await AuthService.LoginAsync(request);
+
+        if (result is null)
+        {
+            errorMessage = "Invalid email or password.";
+            return;
+        }
+
+        Navigation.NavigateTo("/");
+    }
+}

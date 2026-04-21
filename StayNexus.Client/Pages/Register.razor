@@ -1,0 +1,60 @@
+@page "/register"
+@layout Layout.MainLayout
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<div class="auth-container">
+    <h2>Register</h2>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="error">@errorMessage</p>
+    }
+
+    <input type="text" placeholder="First Name" @bind="firstName" />
+    <input type="text" placeholder="Last Name" @bind="lastName" />
+    <input type="email" placeholder="Email" @bind="email" />
+    <input type="password" placeholder="Password" @bind="password" />
+
+    <select @bind="role">
+        <option value="Guest">Guest</option>
+        <option value="Owner">Owner</option>
+    </select>
+
+    <button @onclick="HandleRegister">Register</button>
+
+    <p>Already have an account? <a href="/login">Login</a></p>
+</div>
+
+@code {
+    private string firstName = string.Empty;
+    private string lastName = string.Empty;
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string role = "Guest";
+    private string errorMessage = string.Empty;
+
+    private async Task HandleRegister()
+    {
+        errorMessage = string.Empty;
+
+        var request = new StayNexus.Shared.Requests.RegisterRequest
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            Email = email,
+            Password = password,
+            Role = role
+        };
+
+        var result = await AuthService.RegisterAsync(request);
+
+        if (result is null)
+        {
+            errorMessage = "Registration failed. Please check your details.";
+            return;
+        }
+
+        Navigation.NavigateTo("/");
+    }
+}
