@@ -166,3 +166,5 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\refint\StayNex
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.genruntimeconfig.cache
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\ref\StayNexus.API.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\StayNexus.API.sourcelink.json

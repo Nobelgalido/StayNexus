@@ -10,3 +10,4 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Cor
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\refint\StayNexus.Core.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\ref\StayNexus.Core.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.sourcelink.json

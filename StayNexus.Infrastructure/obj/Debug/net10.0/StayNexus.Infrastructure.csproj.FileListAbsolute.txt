@@ -15,3 +15,4 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\ref
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.genruntimeconfig.cache
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\ref\StayNexus.Infrastructure.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.sourcelink.json

@@ -1,11 +1,59 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using StayNexus.Core.Models;
 using StayNexus.Infrastructure.Data;
+using StayNexus.Core.Interfaces;
+using StayNexus.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+})
+.AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
+
+// JWT Authentication
+var jwtKey = builder.Configuration["Jwt:Key"]!;
+var jwtIssuer = builder.Configuration["Jwt:Issuer"]!;
+var jwtAudience = builder.Configuration["Jwt:Audience"]!;
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
+builder.Services.AddAuthorization();
+
+// Services
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Controllers
 builder.Services.AddControllers();
@@ -16,6 +64,21 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Seed roles
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    string[] roles = ["Admin", "Owner", "Guest"];
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -23,6 +86,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

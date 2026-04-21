@@ -9,3 +9,4 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.S
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\refint\StayNexus.Shared.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\ref\StayNexus.Shared.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Shared\obj\Debug\net10.0\StayNexus.Shared.sourcelink.json

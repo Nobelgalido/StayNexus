@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StayNexus.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3664f739bd4516a16b098cee7f5fb9c872d81ff6")]
 [assembly: System.Reflection.AssemblyProductAttribute("StayNexus.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StayNexus.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
