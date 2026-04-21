@@ -1,0 +1,17 @@
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\bin\Debug\net10.0\StayNexus.Infrastructure.deps.json
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\bin\Debug\net10.0\StayNexus.Infrastructure.runtimeconfig.json
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\bin\Debug\net10.0\StayNexus.Infrastructure.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\bin\Debug\net10.0\StayNexus.Infrastructure.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\bin\Debug\net10.0\StayNexus.Core.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\bin\Debug\net10.0\StayNexus.Core.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.AssemblyInfo.cs
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexu.417DA37F.Up2Date
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\refint\StayNexus.Infrastructure.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\StayNexus.Infrastructure.genruntimeconfig.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Infrastructure\obj\Debug\net10.0\ref\StayNexus.Infrastructure.dll

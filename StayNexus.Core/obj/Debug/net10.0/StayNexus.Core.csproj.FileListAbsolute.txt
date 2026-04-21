@@ -1,0 +1,12 @@
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.csproj.AssemblyReference.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.AssemblyInfoInputs.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.AssemblyInfo.cs
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.csproj.CoreCompileInputs.cache
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\bin\Debug\net10.0\StayNexus.Core.deps.json
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\bin\Debug\net10.0\StayNexus.Core.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\bin\Debug\net10.0\StayNexus.Core.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\refint\StayNexus.Core.dll
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\StayNexus.Core.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.Core\obj\Debug\net10.0\ref\StayNexus.Core.dll

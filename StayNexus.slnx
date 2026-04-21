@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="StayNexus.API/StayNexus.API.csproj" />
+  <Project Path="StayNexus.Client/StayNexus.Client.csproj" />
+  <Project Path="StayNexus.Core/StayNexus.Core.csproj" />
+  <Project Path="StayNexus.Infrastructure/StayNexus.Infrastructure.csproj" />
+  <Project Path="StayNexus.Shared/StayNexus.Shared.csproj" />
+  <Project Path="StayNexus.Tests/StayNexus.Tests.csproj" />
+</Solution>
