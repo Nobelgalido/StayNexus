@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "v0TMoCzCcO0=",
+  "dgSpecHash": "WZ3b1lFKKLk=",
   "success": true,
   "projectFilePath": "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Client\\StayNexus.Client.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,8 @@
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\8.0.1\\microsoft.extensions.hosting.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.identity.core\\10.0.6\\microsoft.extensions.identity.core.10.0.6.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.identity.stores\\10.0.6\\microsoft.extensions.identity.stores.10.0.6.nupkg.sha512",
+    "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.localization\\10.0.1\\microsoft.extensions.localization.10.0.1.nupkg.sha512",
+    "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.localization.abstractions\\10.0.1\\microsoft.extensions.localization.abstractions.10.0.1.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.logging\\10.0.6\\microsoft.extensions.logging.10.0.6.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.6\\microsoft.extensions.logging.abstractions.10.0.6.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.extensions.objectpool\\8.0.11\\microsoft.extensions.objectpool.8.0.11.nupkg.sha512",
@@ -72,6 +74,7 @@
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.net.http.headers\\2.3.0\\microsoft.net.http.headers.2.3.0.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.5\\microsoft.net.illink.tasks.10.0.5.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\10.0.5\\microsoft.net.sdk.webassembly.pack.10.0.5.nupkg.sha512",
+    "C:\\Users\\monst\\.nuget\\packages\\mudblazor\\9.4.0\\mudblazor.9.4.0.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.17.0\\system.identitymodel.tokens.jwt.8.17.0.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.0\\system.security.cryptography.pkcs.9.0.0.nupkg.sha512",
     "C:\\Users\\monst\\.nuget\\packages\\system.security.cryptography.xml\\9.0.0\\system.security.cryptography.xml.9.0.0.nupkg.sha512",
