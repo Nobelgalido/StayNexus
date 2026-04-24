@@ -86,7 +86,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/10.0.6": {
+      "Microsoft.AspNetCore.OpenApi/10.0.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "2.0.0"
@@ -1304,10 +1304,10 @@
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.OpenApi/10.0.6": {
-      "sha512": "WTAQe7MAbbKztRyeCRGZOqqlIqpMHDBz+jKo7LLY6hp4qRqn7iucR24u32KJVxV7mF3tSEfwXH96NgGSiDBw7A==",
+    "Microsoft.AspNetCore.OpenApi/10.0.7": {
+      "sha512": "vKiAcGXG0BwNVw3bOjjWRLnp9tR18dR7MiwpvC94h0yFS+zfnzGHzS/JmmgwUdRixrGxrlIMRAWrVc+2DfAGlg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.openapi/10.0.6",
+      "path": "microsoft.aspnetcore.openapi/10.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1318,7 +1318,7 @@
         "build/Microsoft.AspNetCore.OpenApi.targets",
         "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll",
         "lib/net10.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.10.0.6.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.10.0.7.nupkg.sha512",
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
@@ -3656,7 +3656,6 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.6",
       "Microsoft.AspNetCore.OpenApi >= 10.0.*",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.6",
-      "StayNexus.Core >= 1.0.0",
       "StayNexus.Infrastructure >= 1.0.0",
       "StayNexus.Shared >= 1.0.0",
       "Swashbuckle.AspNetCore >= 10.1.7"
@@ -3695,9 +3694,6 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Core\\StayNexus.Core.csproj": {
-              "projectPath": "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Core\\StayNexus.Core.csproj"
-            },
             "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Infrastructure\\StayNexus.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Infrastructure\\StayNexus.Infrastructure.csproj"
             },

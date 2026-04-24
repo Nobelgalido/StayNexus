@@ -33,9 +33,6 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Core\\StayNexus.Core.csproj": {
-                "projectPath": "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Core\\StayNexus.Core.csproj"
-              },
               "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Infrastructure\\StayNexus.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\monst\\PROJECTS\\StayNexus\\StayNexus.Infrastructure\\StayNexus.Infrastructure.csproj"
               },

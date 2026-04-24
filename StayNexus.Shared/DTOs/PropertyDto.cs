@@ -10,5 +10,12 @@ public class PropertyDto
     public string Province { get; set; } = string.Empty;
     public string OwnerName { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
+
+    // Per-property branding
+    public string? PrimaryColor { get; set; }
+    public string? LogoUrl { get; set; }
+    public string? HeroImageUrl { get; set; }
+    public string? Tagline { get; set; }
+
     public List<RoomDto> Rooms { get; set; } = new();
 }

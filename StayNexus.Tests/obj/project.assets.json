@@ -1754,7 +1754,6 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.6",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.6",
           "Microsoft.AspNetCore.OpenApi": "10.0.0",
-          "StayNexus.Core": "1.0.0",
           "StayNexus.Infrastructure": "1.0.0",
           "StayNexus.Shared": "1.0.0",
           "Swashbuckle.AspNetCore": "10.1.7"

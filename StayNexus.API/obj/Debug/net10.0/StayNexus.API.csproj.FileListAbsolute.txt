@@ -150,9 +150,9 @@ C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\runtimes\win-x
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Core.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Infrastructure.dll
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Shared.dll
-C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Core.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Infrastructure.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Shared.pdb
+C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\bin\Debug\net10.0\StayNexus.Core.pdb
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\monst\PROJECTS\StayNexus\StayNexus.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json

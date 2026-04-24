@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StayNexus.Core\StayNexus.Core.csproj" />
     <ProjectReference Include="..\StayNexus.Infrastructure\StayNexus.Infrastructure.csproj" />
     <ProjectReference Include="..\StayNexus.Shared\StayNexus.Shared.csproj" />
   </ItemGroup>
