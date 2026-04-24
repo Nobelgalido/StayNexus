@@ -34,7 +34,12 @@ public class PropertyController : ControllerBase
             City = p.City,
             Province = p.Province,
             OwnerName = $"{p.Owner.FirstName} {p.Owner.LastName}",
-            CreatedAt = p.CreatedAt
+            CreatedAt = p.CreatedAt,
+            PrimaryColor = p.PrimaryColor,
+            LogoUrl = p.LogoUrl,
+            HeroImageUrl = p.HeroImageUrl,
+            Tagline = p.Tagline
+
         });
 
         return Ok(result);
@@ -59,6 +64,10 @@ public class PropertyController : ControllerBase
             Province = property.Province,
             OwnerName = $"{property.Owner.FirstName} {property.Owner.LastName}",
             CreatedAt = property.CreatedAt,
+            PrimaryColor = property.PrimaryColor,
+            LogoUrl = property.LogoUrl,
+            HeroImageUrl = property.HeroImageUrl,
+            Tagline = property.Tagline,
             Rooms = property.Rooms.Select(r => new RoomDto
             {
                 Id = r.Id,
