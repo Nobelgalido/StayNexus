@@ -1,0 +1,110 @@
+@page "/properties"
+@inject PropertyService PropertyService
+
+<PageTitle>Browse Properties — StayNexus</PageTitle>
+
+<MudText Typo="Typo.h4" Class="mb-2">Browse Properties</MudText>
+<MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6">
+    Find your perfect stay across our listed properties.
+</MudText>
+
+<MudTextField @bind-Value="_searchText"
+              Placeholder="Search by name or city..."
+              Adornment="Adornment.Start"
+              AdornmentIcon="@Icons.Material.Filled.Search"
+              Variant="Variant.Outlined"
+              Class="mb-6"
+              Immediate="true" />
+
+@if (_isLoading)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else if (_filteredProperties.Count == 0)
+{
+    <MudAlert Severity="Severity.Info">
+        No properties found. Try a different search.
+    </MudAlert>
+}
+else
+{
+    <MudGrid>
+        @foreach (var property in _filteredProperties)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Elevation="2">
+                    @if (!string.IsNullOrEmpty(property.HeroImageUrl))
+                    {
+                        <MudCardMedia Image="@property.HeroImageUrl" Height="180" />
+                    }
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6">@property.Name</MudText>
+                        @if (!string.IsNullOrEmpty(property.Tagline))
+                        {
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @property.Tagline
+                            </MudText>
+                        }
+                        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-1">
+                            <MudIcon Icon="@Icons.Material.Filled.LocationOn"
+                                     Size="Size.Small" />
+                            @property.City, @property.Province
+                        </MudText>
+                        <MudText Typo="Typo.body2" Class="mt-2">
+                            @property.Description
+                        </MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudChip T="string"
+                                 Icon="@Icons.Material.Filled.MeetingRoom"
+                                 Size="Size.Small"
+                                 Color="Color.Primary">
+                            @property.Rooms.Count room(s)
+                        </MudChip>
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   Href="@($"/properties/{property.Id}")">
+                            View Rooms
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">@_errorMessage</MudAlert>
+}
+
+@code {
+    private List<PropertyDto> _properties = new();
+    private string? _errorMessage;
+    private bool _isLoading = true;
+    private string _searchText = string.Empty;
+
+    private List<PropertyDto> _filteredProperties => _properties
+        .Where(p =>
+            string.IsNullOrWhiteSpace(_searchText) ||
+            p.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase) ||
+            p.City.Contains(_searchText, StringComparison.OrdinalIgnoreCase))
+        .ToList();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _properties = await PropertyService.GetAllPropertiesAsync();
+        }
+        catch (Exception)
+        {
+            _errorMessage = "Failed to load properties. Please try again later.";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+}

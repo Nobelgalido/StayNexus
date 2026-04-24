@@ -1,0 +1,133 @@
+@page "/properties/{Id:int}"
+@inject PropertyService PropertyService
+@inject NavigationManager Navigation
+
+<PageTitle>@(_property?.Name ?? "Property") — StayNexus</PageTitle>
+
+@if (_isLoading)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else if (_property is null)
+{
+    <MudAlert Severity="Severity.Error">Property not found.</MudAlert>
+}
+else
+{
+    @if (!string.IsNullOrEmpty(_property.HeroImageUrl))
+    {
+        <MudPaper Elevation="0" Class="mb-6" Style="overflow:hidden; border-radius:12px;">
+            <img src="@_property.HeroImageUrl"
+                 alt="@_property.Name"
+                 style="width:100%; height:300px; object-fit:cover;" />
+        </MudPaper>
+    }
+
+    <MudText Typo="Typo.h4" Class="mb-1">@_property.Name</MudText>
+
+    @if (!string.IsNullOrEmpty(_property.Tagline))
+    {
+        <MudText Typo="Typo.subtitle1" Color="Color.Secondary" Class="mb-2">
+            @_property.Tagline
+        </MudText>
+    }
+
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-2">
+        <MudIcon Icon="@Icons.Material.Filled.LocationOn" Size="Size.Small" />
+        @_property.Address, @_property.City, @_property.Province
+    </MudText>
+
+    <MudText Typo="Typo.body1" Class="mb-6">@_property.Description</MudText>
+
+    <MudDivider Class="mb-6" />
+
+    <MudText Typo="Typo.h5" Class="mb-4">Available Rooms</MudText>
+
+    @if (_property.Rooms.Count == 0)
+    {
+        <MudAlert Severity="Severity.Info">
+            No rooms listed for this property yet.
+        </MudAlert>
+    }
+    else
+    {
+        <MudGrid>
+            @foreach (var room in _property.Rooms)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudCard Elevation="2">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6">@room.Name</MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-2">
+                                @room.RoomType.ToString()
+                            </MudText>
+                            <MudText Typo="Typo.body2" Class="mb-2">
+                                @room.Description
+                            </MudText>
+                            <MudDivider Class="mb-2" />
+                            <MudStack Row="true" Justify="Justify.SpaceBetween">
+                                <MudText Typo="Typo.body2">
+                                    <MudIcon Icon="@Icons.Material.Filled.People"
+                                             Size="Size.Small" />
+                                    Max @room.MaxGuests guests
+                                </MudText>
+                                <MudText Typo="Typo.subtitle2" Color="Color.Primary">
+                                    ₱@room.PricePerNight.ToString("N2") / night
+                                </MudText>
+                            </MudStack>
+                        </MudCardContent>
+                        <MudCardActions>
+                            @if (room.IsAvailable)
+                            {
+                                <MudButton Variant="Variant.Filled"
+                                           Color="Color.Primary"
+                                           FullWidth="true"
+                                           Href="@($"/properties/{Id}/rooms/{room.Id}")">
+                                    Book Now
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <MudButton Variant="Variant.Filled"
+                                           Color="Color.Default"
+                                           FullWidth="true"
+                                           Disabled="true">
+                                    Unavailable
+                                </MudButton>
+                            }
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+}
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">@_errorMessage</MudAlert>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    private PropertyDto? _property;
+    private bool _isLoading = true;
+    private string? _errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _property = await PropertyService.GetByIdAsync(Id);
+        }
+        catch (Exception)
+        {
+            _errorMessage = "Failed to load property. Please try again later.";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+}

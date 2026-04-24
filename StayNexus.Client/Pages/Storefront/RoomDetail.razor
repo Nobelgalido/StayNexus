@@ -1,0 +1,267 @@
+@page "/properties/{PropertyId:int}/rooms/{RoomId:int}"
+@inject PropertyService PropertyService
+@inject BookingService BookingService
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+
+<PageTitle>@(_room?.Name ?? "Room") — StayNexus</PageTitle>
+
+@if (_isLoading)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else if (_room is null)
+{
+    <MudAlert Severity="Severity.Error">Room not found.</MudAlert>
+}
+else
+{
+    <MudBreadcrumbs Items="_breadcrumbs" Class="mb-4" />
+
+    <MudGrid>
+        @* Left column — room info *@
+        <MudItem xs="12" md="7">
+            <MudText Typo="Typo.h4" Class="mb-1">@_room.Name</MudText>
+            <MudText Typo="Typo.subtitle1" Color="Color.Secondary" Class="mb-2">
+                @_room.RoomType.ToString() · Max @_room.MaxGuests guests
+            </MudText>
+            <MudText Typo="Typo.body1" Class="mb-4">@_room.Description</MudText>
+            <MudDivider Class="mb-4" />
+            <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-6">
+                ₱@_room.PricePerNight.ToString("N2") / night
+            </MudText>
+        </MudItem>
+
+        @* Right column — booking form *@
+        <MudItem xs="12" md="5">
+            <MudPaper Elevation="3" Class="pa-6">
+                <MudText Typo="Typo.h6" Class="mb-4">Check Availability</MudText>
+
+                <MudDatePicker Label="Check-in Date"
+                               @bind-Date="_checkInDate"
+                               MinDate="DateTime.Today"
+                               Variant="Variant.Outlined"
+                               Class="mb-4" />
+
+                <MudDatePicker Label="Check-out Date"
+                               @bind-Date="_checkOutDate"
+                               MinDate="DateTime.Today.AddDays(1)"
+                               Variant="Variant.Outlined"
+                               Class="mb-4" />
+
+                <MudNumericField T="int"
+                                 Label="Number of Guests"
+                                 @bind-Value="_numberOfGuests"
+                                 Min="1"
+                                 Max="@_room.MaxGuests"
+                                 Variant="Variant.Outlined"
+                                 Class="mb-4" />
+
+                @if (_nights > 0)
+                {
+                    <MudAlert Severity="Severity.Info" Class="mb-4">
+                        @_nights night(s) · Total: ₱@_totalPrice.ToString("N2")
+                    </MudAlert>
+                }
+
+                @if (_availabilityChecked)
+                {
+                    @if (_isAvailable)
+                    {
+                        <MudAlert Severity="Severity.Success" Class="mb-4">
+                            This room is available for your selected dates.
+                        </MudAlert>
+                    }
+                    else
+                    {
+                        <MudAlert Severity="Severity.Error" Class="mb-4">
+                            This room is not available for the selected dates.
+                        </MudAlert>
+                    }
+                }
+
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           FullWidth="true"
+                           Class="mb-3"
+                           OnClick="CheckAvailability"
+                           Disabled="_isChecking">
+                    @if (_isChecking)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <span>Check Availability</span>
+                    }
+                </MudButton>
+
+                <AuthorizeView>
+                    <Authorized>
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   FullWidth="true"
+                                   OnClick="CreateBooking"
+                                   Disabled="@(!_isAvailable || _isBooking)">
+                            @if (_isBooking)
+                            {
+                                <MudProgressCircular Size="Size.Small"
+                                                     Indeterminate="true" />
+                            }
+                            else
+                            {
+                                <span>Book Now</span>
+                            }
+                        </MudButton>
+                    </Authorized>
+                    <NotAuthorized>
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   FullWidth="true"
+                                   Href="/login">
+                            Login to Book
+                        </MudButton>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+}
+
+@code {
+    [Parameter] public int PropertyId { get; set; }
+    [Parameter] public int RoomId { get; set; }
+
+    private RoomDto? _room;
+    private bool _isLoading = true;
+
+    private DateTime? _checkInDate;
+    private DateTime? _checkOutDate;
+    private int _numberOfGuests = 1;
+
+    private bool _isChecking = false;
+    private bool _isBooking = false;
+    private bool _availabilityChecked = false;
+    private bool _isAvailable = false;
+
+    private int _nights => (_checkInDate.HasValue && _checkOutDate.HasValue)
+        ? Math.Max(0, (_checkOutDate.Value.Date - _checkInDate.Value.Date).Days)
+        : 0;
+
+    private decimal _totalPrice => _nights * (_room?.PricePerNight ?? 0);
+
+    private List<BreadcrumbItem> _breadcrumbs = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var property = await PropertyService.GetByIdAsync(PropertyId);
+
+            if (property is null)
+            {
+                _isLoading = false;
+                return;
+            }
+
+            _room = property.Rooms.FirstOrDefault(r => r.Id == RoomId);
+
+            _breadcrumbs = new List<BreadcrumbItem>
+            {
+                new("Properties", href: "/properties"),
+                new(property.Name, href: $"/properties/{PropertyId}"),
+                new(_room?.Name ?? "Room", href: null, disabled: true)
+            };
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Failed to load room details.", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task CheckAvailability()
+    {
+        if (!_checkInDate.HasValue || !_checkOutDate.HasValue)
+        {
+            Snackbar.Add("Please select both check-in and check-out dates.",
+                Severity.Warning);
+            return;
+        }
+
+        if (_checkInDate >= _checkOutDate)
+        {
+            Snackbar.Add("Check-out date must be after check-in date.",
+                Severity.Warning);
+            return;
+        }
+
+        _isChecking = true;
+        _availabilityChecked = false;
+
+        try
+        {
+            var request = new CheckAvailabilityRequest
+            {
+                RoomId = RoomId,
+                CheckInDate = _checkInDate.Value,
+                CheckOutDate = _checkOutDate.Value
+            };
+
+            _isAvailable = await BookingService.CheckAvailabilityAsync(request);
+            _availabilityChecked = true;
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Failed to check availability. Please try again.",
+                Severity.Error);
+        }
+        finally
+        {
+            _isChecking = false;
+        }
+    }
+
+    private async Task CreateBooking()
+    {
+        if (!_checkInDate.HasValue || !_checkOutDate.HasValue)
+            return;
+
+        _isBooking = true;
+
+        try
+        {
+            var request = new CreateBookingRequest
+            {
+                RoomId = RoomId,
+                CheckInDate = _checkInDate.Value,
+                CheckOutDate = _checkOutDate.Value,
+                NumberOfGuests = _numberOfGuests
+            };
+
+            var (success, booking, error) =
+                await BookingService.CreateBookingAsync(request);
+
+            if (success && booking is not null)
+            {
+                Snackbar.Add("Booking confirmed!", Severity.Success);
+                Navigation.NavigateTo("/my-bookings");
+            }
+            else
+            {
+                Snackbar.Add(error ?? "Booking failed.", Severity.Error);
+            }
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("An unexpected error occurred.", Severity.Error);
+        }
+        finally
+        {
+            _isBooking = false;
+        }
+    }
+}
