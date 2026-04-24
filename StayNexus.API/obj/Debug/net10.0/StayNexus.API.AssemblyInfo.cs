@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StayNexus.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cedb263a0f302a2df06ba56b280546f4b3854c80")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d3e1e7092dc967f7842f7b0f1e7321e20de356b")]
 [assembly: System.Reflection.AssemblyProductAttribute("StayNexus.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StayNexus.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

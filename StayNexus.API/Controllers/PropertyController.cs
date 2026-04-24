@@ -10,7 +10,6 @@ namespace StayNexus.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin")]
 public class PropertyController : ControllerBase
 {
     private readonly IPropertyRepository _propertyRepository;
@@ -21,6 +20,7 @@ public class PropertyController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         var properties = await _propertyRepository.GetAllAsync();
@@ -41,14 +41,13 @@ public class PropertyController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetById(int id)
     {
         var property = await _propertyRepository.GetByIdAsync(id);
 
         if (property is null)
-        {
             return NotFound(new { message = "Property not found." });
-        }
 
         var result = new PropertyDto
         {
@@ -78,6 +77,7 @@ public class PropertyController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromBody] CreatePropertyRequest request)
     {
         var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
@@ -98,14 +98,13 @@ public class PropertyController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var property = await _propertyRepository.GetByIdAsync(id);
 
         if (property is null)
-        {
             return NotFound(new { message = "Property not found." });
-        }
 
         await _propertyRepository.DeleteAsync(id);
 
