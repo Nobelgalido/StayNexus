@@ -67,17 +67,23 @@ builder.Services.AddCors(options =>
 
 // Services
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+
 
 // Repositories
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
-// Booking
-builder.Services.AddScoped<IBookingService, BookingService>();
 
 // Controllers
 builder.Services.AddControllers();
+
+// PayMongo
+builder.Services.Configure<PaymongoSettings>(
+    builder.Configuration.GetSection("PayMongo"));
+builder.Services.AddHttpClient<IPaymentService, PaymongoPaymentService>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
