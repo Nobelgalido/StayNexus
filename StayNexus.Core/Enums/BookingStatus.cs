@@ -1,9 +1,9 @@
 namespace StayNexus.Core.Enums;
 
-public enum PaymentStatus
+public enum BookingStatus
 {
-    Unpaid,
-    Paid,
-    Refunded,
-    Failed
+    Pending,
+    Confirmed,
+    Cancelled,
+    Completed
 }

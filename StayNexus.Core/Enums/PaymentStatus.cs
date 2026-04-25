@@ -1,7 +1,9 @@
 namespace StayNexus.Core.Enums;
 
-public enum PaymentGateway
+public enum PaymentStatus
 {
-    PayMongo,
-    Stripe
+    Unpaid,
+    Paid,
+    Refunded,
+    Failed
 }

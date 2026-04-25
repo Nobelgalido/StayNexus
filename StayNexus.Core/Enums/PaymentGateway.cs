@@ -1,9 +1,7 @@
 namespace StayNexus.Core.Enums;
 
-public enum BookingStatus
+public enum PaymentGateway
 {
-    Pending,
-    Confirmed,
-    Cancelled,
-    Completed
+    PayMongo,
+    Stripe
 }
