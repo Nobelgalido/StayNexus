@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StayNexus.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e226d2a548c26abe0449f86462a51ec238d07b3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd3b6a2f30fffcefe0a78c0cb324e7605ebfeabb")]
 [assembly: System.Reflection.AssemblyProductAttribute("StayNexus.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StayNexus.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
