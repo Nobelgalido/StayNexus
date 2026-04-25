@@ -25,6 +25,9 @@ builder.Services.AddScoped<AuthorizedHttpClientFactory>();
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<BookingService>();
 builder.Services.AddScoped<PropertyService>();
+builder.Services.AddScoped<PaymentService>();
+
+// MudBlazor
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

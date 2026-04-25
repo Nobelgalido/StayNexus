@@ -1,0 +1,136 @@
+@page "/my-bookings"
+@attribute [Authorize]
+@inject BookingService BookingService
+@inject PaymentService PaymentService
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+<PageTitle>My Bookings — StayNexus</PageTitle>
+
+<MudText Typo="Typo.h4" Class="mb-6">My Bookings</MudText>
+
+@if (_isLoading)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else if (_bookings.Count == 0)
+{
+    <MudAlert Severity="Severity.Info">
+        You have no bookings yet.
+    </MudAlert>
+}
+else
+{
+    <MudTable Items="_bookings" Hover="true" Striped="true" Elevation="2">
+        <HeaderContent>
+            <MudTh>Property</MudTh>
+            <MudTh>Room</MudTh>
+            <MudTh>Check-in</MudTh>
+            <MudTh>Check-out</MudTh>
+            <MudTh>Total</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh>Payment</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.PropertyName</MudTd>
+            <MudTd>@context.RoomName</MudTd>
+            <MudTd>@context.CheckInDate.ToString("MMM dd, yyyy")</MudTd>
+            <MudTd>@context.CheckOutDate.ToString("MMM dd, yyyy")</MudTd>
+            <MudTd>₱@context.TotalPrice.ToString("N2")</MudTd>
+            <MudTd>@context.BookingStatus.ToString()</MudTd>
+            <MudTd>@context.PaymentStatus.ToString()</MudTd>
+            <MudTd>
+                @if (context.BookingStatus == BookingStatus.Pending &&
+                     context.PaymentStatus == PaymentStatus.Unpaid)
+                {
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Success"
+                               Size="Size.Small"
+                               OnClick="@(() => PayNow(context.Id))"
+                               Disabled="@(_processingId == context.Id)">
+                        Pay Now
+                    </MudButton>
+                }
+                @if (context.BookingStatus != BookingStatus.Cancelled)
+                {
+                    <MudButton Variant="Variant.Outlined"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               OnClick="@(() => CancelBooking(context.Id))">
+                        Cancel
+                    </MudButton>
+                }
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+
+@code {
+    private List<BookingDto> _bookings = new();
+    private bool _isLoading = true;
+    private int? _processingId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _bookings = await BookingService.GetMyBookingsAsync();
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Failed to load bookings.", Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task PayNow(int bookingId)
+    {
+        _processingId = bookingId;
+
+        try
+        {
+            var (success, session, error) =
+                await PaymentService.CreateCheckoutAsync(bookingId);
+
+            if (success && session is not null)
+            {
+                await JS.InvokeVoidAsync("open", session.CheckoutUrl, "_self");
+            }
+            else
+            {
+                Snackbar.Add(error ?? "Failed to start payment.", Severity.Error);
+            }
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("An unexpected error occurred.", Severity.Error);
+        }
+        finally
+        {
+            _processingId = null;
+        }
+    }
+
+    private async Task CancelBooking(int bookingId)
+    {
+        var (success, error) = await BookingService.CancelBookingAsync(bookingId);
+
+        if (success)
+        {
+            var booking = _bookings.FirstOrDefault(b => b.Id == bookingId);
+            if (booking is not null)
+                booking.BookingStatus = BookingStatus.Cancelled;
+
+            Snackbar.Add("Booking cancelled.", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add(error ?? "Failed to cancel booking.", Severity.Error);
+        }
+    }
+}
