@@ -66,4 +66,26 @@ public class PaymentController : ControllerBase
             return BadRequest(new { message = ex.Message });
         }
     }
+
+    [HttpPost("webhook")]
+    [AllowAnonymous]
+    public async Task<IActionResult> HandleWebhook()
+    {
+        // Read the raw body — required for signature verification
+        using var reader = new StreamReader(Request.Body);
+        var payload = await reader.ReadToEndAsync();
+
+        var signature = Request.Headers["Paymongo-Signature"].ToString();
+
+        _logger.LogInformation(
+            "PayMongo webhook received — payload length: {Length}, has signature: {HasSig}",
+            payload.Length, !string.IsNullOrEmpty(signature));
+
+        var success = await _paymentService.HandleWebhookAsync(payload, signature);
+
+        if (!success)
+            return BadRequest();
+
+        return Ok();
+    }
 }

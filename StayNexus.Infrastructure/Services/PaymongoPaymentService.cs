@@ -56,7 +56,6 @@ public class PaymongoPaymentService : IPaymentService
         if (existingPayment is not null && existingPayment.Status == PaymentStatus.Paid)
             throw new InvalidOperationException("This booking is already paid.");
 
-        // PayMongo expects amount in centavos (multiply by 100)
         var amountInCentavos = (int)(booking.TotalPrice * 100);
 
         var requestBody = new
@@ -108,16 +107,7 @@ public class PaymongoPaymentService : IPaymentService
             .GetProperty("checkout_url")
             .GetString()!;
 
-        var payment = existingPayment ?? new Payment
-        {
-            BookingId = bookingId,
-            Amount = booking.TotalPrice,
-            Gateway = PaymentGateway.PayMongo,
-            Status = PaymentStatus.Unpaid,
-            GatewayReferenceId = sessionId,
-            CreatedAt = DateTime.UtcNow
-        };
-
+        Payment payment;
         if (existingPayment is not null)
         {
             existingPayment.GatewayReferenceId = sessionId;
@@ -126,7 +116,15 @@ public class PaymongoPaymentService : IPaymentService
         }
         else
         {
-            payment = await _paymentRepository.CreateAsync(payment);
+            payment = await _paymentRepository.CreateAsync(new Payment
+            {
+                BookingId = bookingId,
+                Amount = booking.TotalPrice,
+                Gateway = PaymentGateway.PayMongo,
+                Status = PaymentStatus.Unpaid,
+                GatewayReferenceId = sessionId,
+                CreatedAt = DateTime.UtcNow
+            });
         }
 
         _logger.LogInformation(
@@ -136,9 +134,132 @@ public class PaymongoPaymentService : IPaymentService
         return new CheckoutSessionResult(checkoutUrl, sessionId, payment);
     }
 
-    public Task<bool> HandleWebhookAsync(string payload, string signature)
+    public async Task<bool> HandleWebhookAsync(string payload, string signature)
     {
-        // Implemented in Step 5
-        throw new NotImplementedException();
+        if (!VerifySignature(payload, signature))
+        {
+            _logger.LogWarning("PayMongo webhook signature verification failed.");
+            return false;
+        }
+
+        try
+        {
+            using var document = JsonDocument.Parse(payload);
+            var root = document.RootElement;
+
+            var eventType = root
+                .GetProperty("data")
+                .GetProperty("attributes")
+                .GetProperty("type")
+                .GetString();
+
+            _logger.LogInformation("PayMongo webhook received: {EventType}", eventType);
+
+            if (eventType != "checkout_session.payment.paid")
+            {
+                _logger.LogInformation(
+                    "PayMongo webhook ignored — event type {EventType} not handled.",
+                    eventType);
+                return true;
+            }
+
+            var sessionData = root
+                .GetProperty("data")
+                .GetProperty("attributes")
+                .GetProperty("data");
+
+            var sessionId = sessionData.GetProperty("id").GetString()!;
+
+            var payment = await _paymentRepository
+                .GetByGatewayReferenceIdAsync(sessionId);
+
+            if (payment is null)
+            {
+                _logger.LogWarning(
+                    "PayMongo webhook — no payment found for session {SessionId}",
+                    sessionId);
+                return true;
+            }
+
+            if (payment.Status == PaymentStatus.Paid)
+            {
+                _logger.LogInformation(
+                    "PayMongo webhook — payment {PaymentId} already paid, skipping.",
+                    payment.Id);
+                return true;
+            }
+
+            payment.Status = PaymentStatus.Paid;
+            await _paymentRepository.UpdateAsync(payment);
+
+            var booking = await _bookingRepository.GetByIdAsync(payment.BookingId);
+            if (booking is not null)
+            {
+                booking.PaymentStatus = PaymentStatus.Paid;
+                booking.BookingStatus = BookingStatus.Confirmed;
+                await _bookingRepository.UpdateAsync(booking);
+            }
+
+            _logger.LogInformation(
+                "PayMongo webhook processed — payment {PaymentId} for booking {BookingId} confirmed.",
+                payment.Id, payment.BookingId);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "PayMongo webhook processing failed.");
+            return false;
+        }
+    }
+
+    private bool VerifySignature(string payload, string signatureHeader)
+    {
+        if (string.IsNullOrWhiteSpace(signatureHeader))
+            return false;
+
+        var parts = signatureHeader.Split(',');
+        string? timestamp = null;
+        string? testSignature = null;
+        string? liveSignature = null;
+
+        foreach (var part in parts)
+        {
+            var keyValue = part.Split('=', 2);
+            if (keyValue.Length != 2) continue;
+
+            switch (keyValue[0])
+            {
+                case "t": timestamp = keyValue[1]; break;
+                case "te": testSignature = keyValue[1]; break;
+                case "li": liveSignature = keyValue[1]; break;
+            }
+        }
+
+        if (timestamp is null)
+            return false;
+
+        var expectedSignature = testSignature ?? liveSignature;
+        if (expectedSignature is null)
+            return false;
+
+        var signedPayload = $"{timestamp}.{payload}";
+        var keyBytes = Encoding.UTF8.GetBytes(_settings.WebhookSecret);
+        using var hmac = new System.Security.Cryptography.HMACSHA256(keyBytes);
+        var hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(signedPayload));
+        var computedSignature = Convert.ToHexString(hashBytes).ToLowerInvariant();
+
+        return CryptographicEquals(computedSignature, expectedSignature);
+    }
+
+    private static bool CryptographicEquals(string a, string b)
+    {
+        if (a.Length != b.Length) return false;
+
+        var result = 0;
+        for (var i = 0; i < a.Length; i++)
+            result |= a[i] ^ b[i];
+
+        return result == 0;
     }
 }
